@@ -1,6 +1,7 @@
 # !CMAKE_ARGS="-DLLAMA_CUBLAS=on" FORCE_CMAKE=1 pip install --upgrade --force-reinstall llama-cpp-python --no-cache-dir
 from llama_cpp import Llama
 
+
 SYSTEM_PROMPT = """Ты менеджер технической поддержки в чате
 """
 SYSTEM_TOKEN = 1788
@@ -14,14 +15,19 @@ ROLE_TOKENS = {
     "system": SYSTEM_TOKEN
 }
 
-model = Llama(
-    model_path='/work/projects/uii/saiga_assistant_api/models/model-q2_K.gguf',
-    n_ctx=4096,
-    n_parts=1,
-    # n_gpu_layers=70,
-    n_batch=512,
-    # n_gqa=8,
-)
+try:
+    from settings_local import model_settings
+except ImportError:
+    model_settings = {
+        'model_path': '../models/ggml-model-q4_1.gguf',
+        'n_ctx': 4096,
+        'n_parts': 1,
+        'n_gpu_layers': 70,
+        'n_batch': 512,
+        'n_gqa': 8
+    }
+
+model = Llama(**model_settings)
 
 def get_message_tokens(model, role, content):
     message_tokens = model.tokenize(content.encode("utf-8"))
@@ -85,4 +91,4 @@ def main(query):
     return result #API должно отдать
 
 if __name__ == '__main__':
-    main("Привет")
+    main("Привет как поживаешь")
