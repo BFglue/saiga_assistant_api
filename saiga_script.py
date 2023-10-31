@@ -2,8 +2,8 @@
 from llama_cpp import Llama
 
 
-SYSTEM_PROMPT = """Ты менеджер технической поддержки в чате
-"""
+DEFAULT_SYSTEM_PROMPT = """Ты менеджер технической поддержки в чате"""
+
 SYSTEM_TOKEN = 1788
 USER_TOKEN = 1404
 BOT_TOKEN = 9225
@@ -37,10 +37,10 @@ def get_message_tokens(model, role, content):
     return message_tokens
 
 
-def get_system_tokens(model):
+def get_system_tokens(model, system):
     system_message = {
         "role": "system",
-        "content": SYSTEM_PROMPT
+        "content": system
     }
     return get_message_tokens(model, **system_message)
 
@@ -81,9 +81,9 @@ def interact(
         print()
 
 
-def main(query):
+def main(query, system=DEFAULT_SYSTEM_PROMPT):
     # query - "То что должно передать API от пользователя"
-    system_tokens = get_system_tokens(model)
+    system_tokens = get_system_tokens(model, system)
     tokens = system_tokens
     model.eval(tokens)
     result = interact(model, query=query, tokens=tokens)
