@@ -75,7 +75,6 @@ def interact(
             answer.append(token_str)
             if token == model.token_eos():
                 return ''.join(answer)
-                break
 
             print(token_str, end="", flush=True)
         print()
