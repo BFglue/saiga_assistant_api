@@ -1,7 +1,8 @@
 [program:fastapi-app]
-command=/home/fastapi_user/saiga_assistant_api/app/gunicorn_start
+command=/home/fastapi_user/llm_api/app/gunicorn_start
 user=fastapi_user
 autostart=true
 autorestart=true
 redirect_stderr=true
-stdout_logfile=/home/fastapi_user/saiga_assistant_api/logs/gunicorn-error.log
+stdout_logfile=/home/fastapi_user/llm_api/logs/gunicorn-error.log
+
