@@ -19,7 +19,7 @@ try:
     from settings_local import model_settings
 except ImportError:
     model_settings = {
-        'model_path': '../models/ggml-model-q4_1.gguf',
+        'model_path': '../models/model-q2_K.gguf',
         'n_ctx': 4096,
         'n_parts': 1,
         'n_gpu_layers': 70,
