@@ -1,12 +1,12 @@
 #!/bin/bash
 
 NAME=fastapi-app
-DIR=/home/fastapi_user/saiga_assistant_api/app
+DIR=/home/fastapi_user/llm_api/app
 USER=fastapi_user
 GROUP=fastapi_user
 WORKERS=1
 WORKER_CLASS=uvicorn.workers.UvicornWorker
-VENV=$DIR/venv/bin/activate
+VENV=$DIR/../venv/bin/activate
 BIND=unix:$DIR/run/gunicorn.sock
 LOG_LEVEL=error
 
@@ -22,3 +22,4 @@ exec gunicorn main:app \
   --bind=$BIND \
   --log-level=$LOG_LEVEL \
   --log-file=-
+
